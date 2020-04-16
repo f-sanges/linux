@@ -1,0 +1,259 @@
+ctrl + alt + t 						-> apre terminale
+
+apt-cache search something			-> per cercare attraverso il package manager
+esempio: apt-cache search gimp*		
+
+
+apt-cache policy gimp				-> per cercare quanto installato
+
+dpkg -i file.deb					-> installare deb
+
+apt-get update						-> upgrade di tutti i pacchetti
+
+find . -size +1m					-> cerca file con dimensione > 1MB
+find . -not -iname "*.txt"			-> not in find
+find . -maxdepth 1 -iname "*.txt"	-> maxdepth 1 cerca solo nella cartella (no recursion)
+
+grep qualcosa file1 file2							-> grep può effettuare la ricerca su + files
+grep -n												-> oltre ai risultati visualizza il num di riga
+
+find . -iname "*.txt" -exec grep -i qualcosa {} + 	-> uso di exec per combinare find e grep
+-exec command {} +
+       This variant of the -exec action runs the specified command on the selected files, but the command
+       line is built by appending each selected file name at the end; the total number of invocations  of
+       the command will be much less than the number of matched files.  The command line is built in much
+       the same way that xargs builds its command lines.  Only one instance of `{}' is allowed within the
+       command.  The command is executed in the starting directory.
+
+find . -iname "*.txt" | tee file.txt				-> redirect a file e a schermo
+
+pgrep -u root ssh			-> will only list the processes that are called sshd and are owned by root.
+
+sudo systemctl start elasticsearch   	-> simile a :
+					sudo servive elasticsearch start (NB cambia l'ordine dei comandi)
+
+
+crontab -e				-> qui puoi specificare un task con sintassi:  m h  dom mon dow   command
+					minute (m), hour (h), day of month (dom), month (mon), and day of week (dow)
+					NB: è per l'utente; per root esegui: sudo crontab -e
+
+
+git remote add origin git@repo_git.git	-> set a new remote
+git remote -v				-> Verify new remote
+git-ignore .idea			-> crea il file .ignore valorizzato con .idea 
+
+sudo adduser utente sudo		-> aggiunge utente a sudoers
+
+VEDI VIRTUALHOST con rif a Apache e a2ensite!!!
+
+
+sudo tcpdump -i wl01 -A port 22		-> tcpdump su interfaccia wl01 e porta 22 -A in ASCII
+
+nmap IP					-> dice i servizi attivi
+
+/etc/ssh/sshd_config			-> tutte le config per ssh (es porta, puoi consentire accesso solo a determinati user con AllowUsers
+
+sudo -i					-> In Ubuntu, diventare root
+
+sudo apt-get install default-jdk	-> Install java (x aggiornare sistema prima del comando: (da root) apt-get update && apt-get upgrade
+
+
+In Ubuntu i log di sistema sono in /var/log/syslog
+
+
+
+
+===============================================NGINX===============================================
+
+Installare in Ubuntu: sudo apt-get install nginx
+file di configurazione: /etc/nginx/nginx.conf
+
+in /etc/nginx/sites-enabled:
+drwxr-xr-x 8 fuokista fuokista 4096 Mar 17 18:40 ../
+lrwxrwxrwx 1 fuokista fuokista   34 Mar 17 18:06 default -> /etc/nginx/sites-available/default
+
+Disable the default virtual host, that is pre-configured when Nginx is istalled via Ubuntu’s packet manager apt:
+unlink /etc/nginx/sites-enabled/default -> rimuove il link
+
+Enter the directory /etc/nginx/sites-available and create a reverse proxy configuration file.
+cd /etc/nginx/sites-available
+nano reverse-proxy.conf
+Paste the following Nginx configuration in the text editor. The proxy server redirects all incomming connections on port 80 to the Webfsd server, listening on port 8000. Edit the port value depending on the applications specific port.
+
+server {
+        listen 80;
+        listen [::]:80;
+
+        access_log /var/log/nginx/reverse-access.log;
+        error_log /var/log/nginx/reverse-error.log;
+
+        location / {
+                    proxy_pass http://127.0.0.1:8080;     //IP DI JENKINS
+  }
+}
+Note: Accesses and errors are located in a log files at /var/log/nginx.
+
+Copy the configuration from /etc/nginx/sites-available to /etc/nginx/sites-enabled. It is recommended to use a symbolic link.
+
+ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf
+
+Test the Nginx configuration file
+
+sudo nginx -t
+which returns
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+
+Open a web browser on your local computer and paste your public_ip which will display your web applications homepage.
+
+
+
+
+
+
+
+
+systemctl enable nginx -> per start all'avvio
+systemctl status nginx -> stato
+systemctl start nginx  -> start nginx
+
+elinks: text browser
+
+
+NOTA: se installi Jenkins (8080) con nginx (80) se accedi a Jenkins e click su Gestisci Jenkins esce un msg di incorretta configurazione, click maggiori dettagli.
+Ho aggiornato il file reverse-proxy.conf nel seguente modo:
+
+fuokista@ubuntu:/usr/share/jenkins$ cat /etc/nginx/sites-enabled/reverse-proxy.conf
+upstream jenkins {
+  keepalive 32; # keepalive connections
+  server 192.168.252.128:8080; # jenkins ip and port
+}
+
+server {
+  listen          80;       # Listen on port 80 for IPv4 requests
+
+  server_name     ubuntu;
+
+  #this is the jenkins web root directory (mentioned in the /etc/default/jenkins file)   <-- IMPORTANTE
+  root            /usr/share/jenkins/;							 <-- IMPORTANTE
+
+  access_log      /var/log/nginx/access.log;	<-- IMPORTANTE
+  error_log       /var/log/nginx/error.log;     <-- IMPORTANTE
+  ignore_invalid_headers off; #pass through headers from Jenkins which are considered invalid by Nginx server.
+
+  location ~ "^/static/[0-9a-fA-F]{8}\/(.*)$" {
+    #rewrite all static files into requests to the root
+    #E.g /static/12345678/css/something.css will become /css/something.css
+    rewrite "^/static/[0-9a-fA-F]{8}\/(.*)" /$1 last;
+  }
+
+  location /userContent {
+    #have nginx handle all the static requests to the userContent folder files
+    #note : This is the $JENKINS_HOME dir
+        root /var/lib/jenkins/;
+    if (!-f $request_filename){
+      #this file does not exist, might be a directory or a /**view** url
+      rewrite (.*) /$1 last;
+          break;
+    }
+        sendfile on;
+  }
+
+  location / {
+      sendfile off;
+      proxy_pass         http://192.168.252.128:8080;     <-- IMPORTANTE
+      proxy_redirect     default;
+      proxy_http_version 1.1;
+
+      proxy_set_header   Host              $host;
+      proxy_set_header   X-Real-IP         $remote_addr;
+      proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto $scheme;
+      proxy_max_temp_file_size 0;
+
+      #this is the maximum upload size
+      client_max_body_size       10m;
+      client_body_buffer_size    128k;
+
+      proxy_connect_timeout      90;
+      proxy_send_timeout         90;
+      proxy_read_timeout         90;
+      proxy_buffering            off;
+      proxy_request_buffering    off; # Required for HTTP CLI commands in Jenkins > 2.54
+      proxy_set_header Connection ""; # Clear for keepalive
+  }
+
+}
+
+
+
+
+
+===============================================JENKINS===============================================
+
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ >  /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+Al termine, jenkins è già avviato, andare su browser localhost:8080
+
+This package installation will:
+	- Setup Jenkins as a daemon launched on start. See /etc/init.d/jenkins for more details.
+	- Create a ‘jenkins’ user to run this service.
+	- Direct console log output to the file /var/log/jenkins/jenkins.log. Check this file if you are troubleshooting Jenkins.
+	- Populate /etc/default/jenkins with configuration parameters for the launch, e.g JENKINS_HOME
+	- Set Jenkins to listen on port 8080. Access this port with your browser to start configuration.
+
+
+Quando compili, sulla schermata fai tasto destro e aggiorna
+
+Su Ubuntu, jenkins è installato in /var/lib/jenkins; qui è presente il workspace
+
+Per startarlo come servizio:
+systemctl enable jenkins
+systemctl start jenkins
+systemctl status jenkins
+
+
+Per eseguire comandi che richiedono privilegi di sudo:
+in /etc/sudoers inserire dopo l'utente root:
+jenkins ALL=(ALL) NOPASSWD: ALL   -> risolve errori del tipo sudo: no tty present and no askpass program specified
+Esempio di comando in job: sudo cat /var/log/syslog
+
+
+CONSULTA SEMPRE IL LOG DI JENKINS: /var/log/jenkins/jenkins.log
+
+
+Con il plugin ssh, quando devi generare chiave privata usa ssh-keygen -t rsa -m PEM
+L'intestazione è del tipo rsa e non openssh, non riconosciuto correttamente da Jenkins
+
+
+===============================================JAVA===============================================
+
+sudo apt install default-jdk		-> In Ubuntu installa ultima jdk
+sudo apt install openjdk-8-jdk		-> Installa jdk 8; puoi installare anche la 11
+sudo update-alternatives --config java	-> Configura quale java usare (selezione numerica)
+
+
+
+
+===============================================TOMCAT===============================================
+
+Vai sul sito di Apache Tomcat, sezione Download e seleziona la versione.
+In corrispondenza del file .tar.gz copiare il link
+In bash: wget LINK_TAR_GZ
+
+Crea cartella /opt/tomcat (o dove si preferisce) e sposta qui il file, tar xvfz FILE
+Crea in bash_profile i riferimenti a JAVA_HOME e CATALINA_HOME:
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export CATALINA_HOME=/opt/tomcat/apache-tomcat-9.0.31
+esegui: . ~/.bashrc
+
+Per avviare (NB: cambiare se necessario la porta in server.xml):
+$CATALINA_HOME/bin/startup.sh
+
+Per avviare dalla pagina di tomcat il "Manager App" è necessario modificare il file tomcat-users.xml e inserire:
+	<role rolename="tomcat"/>
+        <user username="tomcat" password="tomcat" roles="manager-gui"/>
+NB: il manager app si apre solo dalla macchina su cui risiede il tomcat se non si modifica il file /opt/tomcat/apache-tomcat-9.0.31/webapps/host-manager/META-INF/context.xml

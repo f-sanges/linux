@@ -1,0 +1,3 @@
+git remote add origin git@repo_git.git	-> set a new remote
+git remote -v				-> Verify new remote
+git-ignore .idea			-> crea il file .ignore valorizzato con .idea 
