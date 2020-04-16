@@ -1,0 +1,5 @@
+===============================================JAVA===============================================
+
+sudo apt install default-jdk		-> In Ubuntu installa ultima jdk
+sudo apt install openjdk-8-jdk		-> Installa jdk 8; puoi installare anche la 11
+sudo update-alternatives --config java	-> Configura quale java usare (selezione numerica)

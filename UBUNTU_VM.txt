@@ -1,0 +1,20 @@
+has experienced an internal error after upgrade		->  sudo rm -rf ~/.cache/tracker and rm -rf ~/.local/share/tracker
+
+
+SU UBUNTU E' PRESENTE vim-tiny ma non riconosce frecce direzionali
+sudo apt-get remove vim-tiny
+and then reinstall vim:
+sudo apt-get install vim
+
+
+
+sudo adduser utente sudo							-> aggiunge utente a sudoers
+
+
+sudo -i												-> In Ubuntu, diventare root
+
+
+sudo apt-get install default-jdk					-> Install java (x aggiornare sistema prima del comando: (da root) apt-get update && apt-get upgrade
+
+
+In Ubuntu i log di sistema sono in /var/log/syslog

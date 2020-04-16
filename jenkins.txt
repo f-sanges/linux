@@ -1,0 +1,38 @@
+===============================================JENKINS===============================================
+
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ >  /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+Al termine, jenkins è già avviato, andare su browser localhost:8080
+
+This package installation will:
+	- Setup Jenkins as a daemon launched on start. See /etc/init.d/jenkins for more details.
+	- Create a ‘jenkins’ user to run this service.
+	- Direct console log output to the file /var/log/jenkins/jenkins.log. Check this file if you are troubleshooting Jenkins.
+	- Populate /etc/default/jenkins with configuration parameters for the launch, e.g JENKINS_HOME
+	- Set Jenkins to listen on port 8080. Access this port with your browser to start configuration.
+
+
+Quando compili, sulla schermata fai tasto destro e aggiorna
+
+Su Ubuntu, jenkins è installato in /var/lib/jenkins; qui è presente il workspace
+
+Per startarlo come servizio:
+systemctl enable jenkins
+systemctl start jenkins
+systemctl status jenkins
+
+
+Per eseguire comandi che richiedono privilegi di sudo:
+in /etc/sudoers inserire dopo l'utente root:
+jenkins ALL=(ALL) NOPASSWD: ALL   -> risolve errori del tipo sudo: no tty present and no askpass program specified
+Esempio di comando in job: sudo cat /var/log/syslog
+
+
+CONSULTA SEMPRE IL LOG DI JENKINS: /var/log/jenkins/jenkins.log
+
+
+Con il plugin ssh, quando devi generare chiave privata usa ssh-keygen -t rsa -m PEM
+L'intestazione è del tipo rsa e non openssh, non riconosciuto correttamente da Jenkins

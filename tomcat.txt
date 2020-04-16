@@ -1,0 +1,19 @@
+===============================================TOMCAT===============================================
+
+Vai sul sito di Apache Tomcat, sezione Download e seleziona la versione.
+In corrispondenza del file .tar.gz copiare il link
+In bash: wget LINK_TAR_GZ
+
+Crea cartella /opt/tomcat (o dove si preferisce) e sposta qui il file, tar xvfz FILE
+Crea in bash_profile i riferimenti a JAVA_HOME e CATALINA_HOME:
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export CATALINA_HOME=/opt/tomcat/apache-tomcat-9.0.31
+esegui: . ~/.bashrc
+
+Per avviare (NB: cambiare se necessario la porta in server.xml):
+$CATALINA_HOME/bin/startup.sh
+
+Per avviare dalla pagina di tomcat il "Manager App" è necessario modificare il file tomcat-users.xml e inserire:
+	<role rolename="tomcat"/>
+        <user username="tomcat" password="tomcat" roles="manager-gui"/>
+NB: il manager app si apre solo dalla macchina su cui risiede il tomcat se non si modifica il file /opt/tomcat/apache-tomcat-9.0.31/webapps/host-manager/META-INF/context.xml
