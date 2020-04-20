@@ -41,6 +41,7 @@ bin/kafka-console-consumer.sh \
 --topic test \
 --from-beginning
 --partition NUM_PARTITION -> specify partition
+--offset NUM_OFFSET -> specify offset(only if partition is specified)
 
 START CONSOLE CONSUMER WITH SPECIFIC CONSUMER GROUP
 bin/kafka-console-consumer.sh \
