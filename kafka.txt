@@ -40,6 +40,7 @@ bin/kafka-console-consumer.sh \
 --bootstrap-server localhost:9092 \
 --topic test \
 --from-beginning
+--partition NUM_PARTITION -> specify partition
 
 START CONSOLE CONSUMER WITH SPECIFIC CONSUMER GROUP
 bin/kafka-console-consumer.sh \
