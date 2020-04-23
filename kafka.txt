@@ -60,3 +60,13 @@ bin/kafka-consumer-groups.sh \
 --bootstrap-server localhost:9092 \
 --group test \
 --describe
+
+ZOOKEEPER SEE ACTIVE BROKERS
+bin/zookeeper-shell.sh localhost:2181 ls /brokers/ids
+ES: 2 active brokers:
+[kafka@centos7 bin]$ zookeeper-shell.sh localhost:2181 ls /brokers/ids
+OpenJDK 64-Bit Server VM warning: If the number of processors is expected to increase from one, then you should configure the number of parallel GC threads appropriately using -XX:ParallelGCThreads=N
+Connecting to localhost:2181
+WATCHER::
+WatchedEvent state:SyncConnected type:None path:null
+[0, 2]
