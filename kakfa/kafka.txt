@@ -102,3 +102,18 @@ WatchedEvent state:SyncConnected type:None path:null
 [kafkatest, rep2_part1, __consumer_offsets, rep1_part1]
 
 
+PRODUCER PERFORMANCE TEST
+bin/kafka-producer-perf-test.sh \
+--topic perf2 \
+--num-records 1000 \
+--throughput 10 \
+--record-size 1000 \
+--producer-props \
+bootstrap.servers=localhost:9092
+
+
+CONSUMER PERFORMANCE TEST
+bin/kafka-consumer-perf-test.sh \
+--broker-list localhost:9092 \
+--topic perf \
+--messages 1000000
