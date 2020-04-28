@@ -1,0 +1,13 @@
+When zookeeper starts it creates the followings files in logs dir:
+
+[kafka@centos7 logs]$ pwd; ll
+/home/kafka/kafka_2.12-2.3.0/logs
+totale 20
+-rw-rw-r--. 1 kafka kafka  162 28 apr 16.21 controller.log
+-rw-rw-r--. 1 kafka kafka    0 28 apr 16.21 kafka-authorizer.log
+-rw-rw-r--. 1 kafka kafka    0 28 apr 16.21 kafka-request.log
+-rw-rw-r--. 1 kafka kafka    0 28 apr 16.21 log-cleaner.log
+-rw-rw-r--. 1 kafka kafka 8827 28 apr 16.21 server.log
+-rw-rw-r--. 1 kafka kafka  168 28 apr 16.21 state-change.log
+-rw-rw-r--. 1 kafka kafka    0 28 apr 16.21 zookeeper-gc.log.0.current
+

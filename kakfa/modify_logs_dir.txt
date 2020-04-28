@@ -1,0 +1,12 @@
+In a script you can export LOG_DIR before running the kafka-server-start.sh
+
+#!/bin/sh
+export LOG_DIR=/var/log/kafka
+echo 'Kafka application logs set to ' $LOG_DIR
+cd $KAFKA_HOME
+./bin/kafka-server-start.sh ../config/server.properties
+
+or
+
+The log4J log directory has to be passed via the following JVM property:
+-Dkafka.logs.dir=/some/path

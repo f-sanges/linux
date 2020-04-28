@@ -1,0 +1,7 @@
+At the end of the file server.properties I added
+
+############################# User Defined Settings #############################
+auto.create.topics.enable=false
+
+confluent.support.metrics.enable=false -> avoid sending metrics to confluent. 
+In server.log: INFO Successfully submitted metrics to Confluent via secure endpoint (io.confluent.support.metrics.submitters.ConfluentSubmitt 
