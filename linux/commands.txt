@@ -56,3 +56,11 @@ shift up/down								-> Move up/down the output after a cmd like cat
 
 
 ls -lR										-> Recursive ls
+
+{} brackets for globbing
+ex1: echo {1..3}.log  -> 1.log 2.log 3.log
+ex2: echo {a..c}.log  -> a.log b.log c.log
+ex3: echo {a1,a2}.log -> a1.log a2.log
+
+
+info										-> informations about Linux commands
