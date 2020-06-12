@@ -50,3 +50,9 @@ nmap IP												-> dice i servizi attivi
 
 
 unset <var-name>							-> Unset di una variabile settata ad esempio con export
+
+
+shift up/down								-> Move up/down the output after a cmd like cat
+
+
+ls -lR										-> Recursive ls
