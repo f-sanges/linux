@@ -64,3 +64,23 @@ ex3: echo {a1,a2}.log -> a1.log a2.log
 
 
 info										-> informations about Linux commands
+
+vi											-> Ctrl+R  = ReDo
+											   ESC + U = UnDo
+											   Pressing V = Visual line selection, v = visual selection (move with arrows)
+											   Copy(Yank)/Paste is done with Y/P
+											   
+Copy / paste in terminal					-> Ctrl+Shift+c / Ctrl+Shift+v
+
+/var/log/auth.log or /var/log/secure:		-> Keep authentication logs for both successful or failed logins, and authentication processes. Storage depends on system type. 
+											   For Debian/Ubuntu, look in /var/log/auth.log. For Redhat/CentrOS, go to /var/log/secure
+											   
+											   
+kill -l										-> show all the signals that can be sended to a process
+
+lscpu										-> show information about cpu
+nproc										-> show numbers of proc			
+
+uptime										-> Example: 12:13:58 up 5 days,  1:23,  0 users,  load average: 0.00, 0.00, 0.00  = avg load of the last 1,5,15 min (depends on num cpu)
+						
+locate -i NOME_FILE							-> locate (-i not case sensitive)											   
