@@ -27,6 +27,8 @@ find . -iname "*.txt" -exec grep -i qualcosa {} + 	-> uso di exec per combinare 
 
 find . -iname "*.txt" | tee file.txt				-> redirect a file e a schermo
 
+find ! -user USER_NAME								-> find in the current directory all the files not owned by USER_NAME
+
 pgrep -u root ssh			-> will only list the processes that are called sshd and are owned by root.
 
 sudo systemctl start elasticsearch   	-			> simile a :
@@ -83,4 +85,4 @@ nproc										-> show numbers of proc
 
 uptime										-> Example: 12:13:58 up 5 days,  1:23,  0 users,  load average: 0.00, 0.00, 0.00  = avg load of the last 1,5,15 min (depends on num cpu)
 						
-locate -i NOME_FILE							-> locate (-i not case sensitive)											   
+locate -i NOME_FILE							-> locate (-i not case sensitive)										   
