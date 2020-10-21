@@ -1,0 +1,37 @@
+Networking System	STATIC IP in CentOS 7				
+					
+					
+/etc/sysconfig/network-scripts		Verifica interfacce di rete			
+					
+[root@localhost network-scripts]# cat ifcfg-ens33		nel mio caso l'interfaccia di rete è ens-33	[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-ens33		
+TYPE="Ethernet"			TYPE="Ethernet"		
+PROXY_METHOD="none"			PROXY_METHOD="none"		
+BROWSER_ONLY="no"		per dare IP STATICO	BROWSER_ONLY="no"		
+BOOTPROTO="dhcp"	"none" per disattivarlo	IPADDRESS=	BOOTPROTO="none"		#tolto dhcp
+DEFROUTE="yes"		PREFIX=24	DEFROUTE="yes"		
+IPV4_FAILURE_FATAL="no"			IPV4_FAILURE_FATAL="no"		
+IPV6INIT="yes"			IPV6INIT="yes"		
+IPV6_AUTOCONF="yes"			IPV6_AUTOCONF="yes"		
+IPV6_DEFROUTE="yes"			IPV6_DEFROUTE="yes"		
+IPV6_FAILURE_FATAL="no"			IPV6_FAILURE_FATAL="no"		
+IPV6_ADDR_GEN_MODE="stable-privacy"			IPV6_ADDR_GEN_MODE="stable-privacy"		
+NAME="ens33"			NAME="ens33"		
+UUID="248f5ca9-0ce4-465f-9e57-c418e45ff7f9"			UUID="248f5ca9-0ce4-465f-9e57-c418e45ff7f9"		
+DEVICE="ens33"			DEVICE="ens33"		
+ONBOOT="yes"			ONBOOT="yes"		
+			NM_CONTROLLED="no"			# se non metto questo, al restart dei servizi di rete vengono sovrascritte impostazioni
+			IPADDR=192.168.159.128		# per assegnare ip vedi vmnet8 (NAT) e vedi la parte di ip che non puoi modificare in base alla netmask
+			#NETMASK=255.255.255.0		
+			PREFIX=24		
+			GATEWAY=192.168.159.2		# nb: come gateway prendi in considerazione indirizzo vmnet8 +1
+			# Set dns servers #		
+			#DNS1=192.168.159.2		
+			DNS2=8.8.8.8		# dns google
+			DNS3=8.8.4.4		# dns google
+			
+			
+Restart the network service.
+service network restart
+
+controlla che /etc/resolv.conf sia settato con i dns
+ip route show

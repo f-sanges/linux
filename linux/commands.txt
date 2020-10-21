@@ -85,4 +85,12 @@ nproc										-> show numbers of proc
 
 uptime										-> Example: 12:13:58 up 5 days,  1:23,  0 users,  load average: 0.00, 0.00, 0.00  = avg load of the last 1,5,15 min (depends on num cpu)
 						
-locate -i NOME_FILE							-> locate (-i not case sensitive)										   
+locate -i NOME_FILE							-> locate (-i not case sensitive)	
+
+alias										-> Ex: alias ping="ping -c3"
+unalias											   unalias ping			
+
+printenv									-> Print environment variables	
+
+date -d@TIMESTAMP							-> Convert timestamps (s) in date:
+												date -d@1595038139 = Sat Jul 18 04:08:59     2020
