@@ -12,5 +12,9 @@ git show CODE_COMMIT					-> 	git log : show history logs
 											SyncLab@DESKTOP-DLAS36L MINGW64 /d/GitHub/software_notes (master)
 											$ git show 8e919c89e
 											commit 8e919c89ea5d1e9399f9c9739b623d16f5be9f02
+											
+git checkout -b NEW_BRANCH				-> create and do checkout on NEW_BRANCH
+git branch -d BRANCH_USED				-> when you are on the master branch, delete the BRANCH USED
+git merge BRANCH_DEVELOPED				-> when you are on the master branch, merge the BRANCH_DEVELOPED with the main branch
 
 		

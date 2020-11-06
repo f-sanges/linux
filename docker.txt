@@ -1,0 +1,51 @@
+On CentOS START DAEMON and STATUS DOCKER:
+
+sudo service docker start 
+or
+sudo systemctl start docker
+
+
+
+check status (example):
+[docker@centos7 ~]$ systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; vendor preset: disabled)
+   Active: active (running) since mer 2020-10-21 19:17:45 CEST; 12min ago
+     Docs: https://docs.docker.com
+ Main PID: 11893 (dockerd)
+    Tasks: 11
+   Memory: 146.3M
+   CGroup: /system.slice/docker.service
+           └─11893 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.185146502+02:00" level=info msg="ccResolverWrapper: sending update to cc: {[{unix:///run/containerd/con... module=grpc
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.185154002+02:00" level=info msg="ClientConn switching balancer to \"pick_first\"" module=grpc
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.216095559+02:00" level=info msg="[graphdriver] using prior storage driver: overlay2"
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.283135898+02:00" level=info msg="Loading containers: start."
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.614898080+02:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16.... IP address"
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.658035543+02:00" level=info msg="Loading containers: done."
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.714703960+02:00" level=info msg="Docker daemon" commit=4484c46d9d graphdriver(s)=overlay2 version=19.03.13
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.714919761+02:00" level=info msg="Daemon has completed initialization"
+ott 21 19:17:45 centos7 dockerd[11893]: time="2020-10-21T19:17:45.742706433+02:00" level=info msg="API listen on /var/run/docker.sock"
+ott 21 19:17:45 centos7 systemd[1]: Started Docker Application Container Engine.
+Hint: Some lines were ellipsized, use -l to show in full.
+
+
+
+
+EXPOSE PORT MODIFYING hostconfig.json (PAY ATTENTION!!!!)
+Go to /var/lib/docker/containers/ID_CONTAINER for example:
+/var/lib/docker/containers/5b477a6ba0346e11740e829d5e195c41505e98e4cab8d2a2dcae7953b78da328
+backup of hostconfig.json
+modify "PortBindings":{},
+to (example)
+"PortBindings":{"5432/tcp":[{"HostIp":"","HostPort":"5432"}]},
+Restart DOcker daemon (important otherwise the daemon will replace the file once u stop/start the container)
+
+
+
+
+
+
+
+
