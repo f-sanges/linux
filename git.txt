@@ -3,7 +3,7 @@ git config --global email "EMAIL"
 git config -local							-> check all the configurations
 
 git remote add origin git@repo_git.git		-> set a new remote
-git remote -v								-> Verify new remote
+git remote -v								-> Verify remote
 git-ignore .idea							-> crea il file .ignore valorizzato con .idea 
 git log										-> show log commit
 git show CODE_COMMIT						-> 	git log : show history logs

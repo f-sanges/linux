@@ -121,4 +121,13 @@ bin/kafka-consumer-perf-test.sh \
 --messages 1000000
 
 
+CHECK VERSION CONFLUENT KAFKA
+KAFKA VERSION:
+kafka-topics --version
+	-> ex output: 2.1.1-cp3 (Commit:b6527ae5f11f985f)
+find /usr/share/java/kafka -name \*kafka_\* | head -1 | grep -o '\kafka[^\n]*'	
+	-> ex output: kafka/kafka_2.11-2.1.1-cp3-scaladoc.jar where 2.11 is Scala version and 2.1.1 is Kafka Version
+CONFLUENT RPM INSTALLED :
+rpm -qa| grep confluent
+
 
