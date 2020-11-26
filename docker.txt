@@ -41,11 +41,14 @@ modify "PortBindings":{},
 to (example)
 "PortBindings":{"5432/tcp":[{"HostIp":"","HostPort":"5432"}]},
 Restart DOcker daemon (important otherwise the daemon will replace the file once u stop/start the container)
+Check:
+5b477a6ba034        postgres                       "docker-entrypoint.s…"   2 days ago          Up 3 seconds                0.0.0.0:5432->5432/tcp   great_lumiere
 
 
 
 
 
 
+docker logs -ft <CONTAINER>						-> show logs (-t tail, -f follows)
 
 
