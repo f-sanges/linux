@@ -2,10 +2,37 @@ git config --global user "USER"
 git config --global email "EMAIL"
 git config -local							-> check all the configurations
 
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# start the ssh-agent in the background
+$ eval $(ssh-agent -s)
+> Agent pid XXXXXX
+# Add your SSH private key to the ssh-agent.
+ssh-add ~/.ssh/id_rsa
+
 git remote add origin git@repo_git.git		-> set a new remote
 git remote -v								-> Verify remote
+
+git remote set-url origin git@github.com:f-sanges/UDEMY_FORKED_Hands_on_Docker_for_JAVA_Developers.git		-> EXAMPLE to change the url of remote
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Example of use:
+$ git remote -v
+origin  https://github.com/f-sanges/software_notes.git (fetch)									-> the remotes are set with https
+origin  https://github.com/f-sanges/software_notes.git (push)
+
+$ git remote set-url origin git@github.com:f-sanges/UDEMY_FORKED_Hands_on_Docker_for_JAVA_Developers.git	-> url copied from github ssh url of the repo
+
+$ git remote -v
+origin  git@github.com:f-sanges/UDEMY_FORKED_Hands_on_Docker_for_JAVA_Developers.git (fetch)	-> the remotes are set with ssh
+origin  git@github.com:f-sanges/UDEMY_FORKED_Hands_on_Docker_for_JAVA_Developers.git (push)
+--------------------------------------------------------------------------------------------------------------------------------------
+
 git-ignore .idea							-> crea il file .ignore valorizzato con .idea 
+
 git log										-> show log commit
+git log -1									   show only the last commit, log-NUMBER
+
+
 git show CODE_COMMIT						-> 	git log : show history logs
 												commit 8e919c89ea5d1e9399f9c9739b623d16f5be9f02
 												Author: f-sanges <63789710+f-sanges@users.noreply.github.com>
@@ -18,10 +45,44 @@ git show CODE_COMMIT						-> 	git log : show history logs
 												commit 8e919c89ea5d1e9399f9c9739b623d16f5be9f02
 											
 git checkout -b NEW_BRANCH					-> create and do checkout on NEW_BRANCH
+git checkout <COMMIT_SHA>						you can even do checkout to a specific commit retrieved from git log (just for review). Example
+												SyncLab@DESKTOP-DLAS36L MINGW64 /d/GitHub/software_notes (master)
+												$ git checkout a3afaf07908eba1ebdc63e51c09c354b1bf4cc50
+												Note: switching to 'a3afaf07908eba1ebdc63e51c09c354b1bf4cc50'.
+												You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this state without impacting any branches by switching back to a branch.
+												
+git switch <BRANCH>							-> Similar to git checkout <BRANCH>
+git switch -c <BRANCH>							Similar to git checkout -b <BRANCH>
+
+
 git branch									-> show local branches
+
 git branch -r (or -remote)				   	-> show remote branches
 git branch -d BRANCH_USED					-> when you are on the master branch, delete the BRANCH_USED locally
-git push origin --delete remoteBranchName	-> delete remote branch remoteBranchName	
+
+git push origin --delete remoteBranchName	-> delete remote branch remoteBranchName
+git push origin -u BRANCH_REMOTE				"-u" means upstream
+	
 git merge BRANCH_DEVELOPED					-> when you are on the master branch, merge the BRANCH_DEVELOPED with the main branch
 
-		
+
+git rm --cached <FILES>						-> Unstage a file; PAY ATTENTION without "cached" the file will be removed
+
+git commit --amend							-> Modify the last commit (for example if i want to change the commit msg or if forgot to add some file to the commit
+git commit --amend -m "new commit message" 	   for passing in a new commit message 	
+git commit --amend --no-edit				   --no-edit flag will allow you to make the amendment to your commit without changing its commit message
+
+git reset --hard (or -soft) HEAD~1			-> git reset --hard WILL DELETE YOUR WORKING DIRECTORY CHANGES. The HEAD~1 means the commit before head.
+												Or, you could look at the output of git log, find the commit id of the commit you want to back up to, and then do this:	
+												git reset --hard <sha1-commit-id>
+
+git pull									-> pulls down from a remote and instantly merges.
+git fetch									-> git fetch is similar to pull but doesn't merge
+
+git rebase									-> Rebasing is the process of moving or combining a sequence of commits to a new base commit.
+												The primary reason is to maintain a linear project history.
+												It allows to "merge" but changing the history of the commit
+												DO NOT USE when other dev are using the same branch
+git rebase -i HEAD~3						-> rebase interactive mode, HEAD-NUMBER_OF_COMMIT, in the textpad put "s" instead of "pick" to squash commits
+git push --force-with-lease					-> after a commit squash t force origin to be aligned with master
+												--force-with-lease is a safer option that will not overwrite any work on the remote branch if more commits were added to the remote branch (by another team-member or coworker or what have you). It ensures you do not overwrite someone elses work by force pushing
