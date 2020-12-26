@@ -1,6 +1,8 @@
 git config --global user "USER"
 git config --global email "EMAIL"
+git config --global --alias.hist "ALIAS"	-> example: git config --global --alias.hist "log --oneline --graph --decorate --all" and then use git hist(hist is the alias)
 git config -local							-> check all the configurations
+
 
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 # start the ssh-agent in the background
@@ -9,8 +11,26 @@ $ eval $(ssh-agent -s)
 # Add your SSH private key to the ssh-agent.
 ssh-add ~/.ssh/id_rsa
 
+ssh -T git@github.com						-> test ssh connection
+
 git remote add origin git@repo_git.git		-> set a new remote
 git remote -v								-> Verify remote
+git remote show origin						-> inspect a remote
+												Example: $ git remote show origin
+															* remote origin
+															  Fetch URL: http://gitlab.agositafinco.it/scheda_cliente/kafka/ksql.git
+															  Push  URL: http://gitlab.agositafinco.it/scheda_cliente/kafka/ksql.git
+															  HEAD branch: master
+															  Remote branches:
+																develop                                                               tracked
+																feature/ksqldb_5.5                                                    tracked
+																master                                                                tracked
+																release/Release_3.0                                                   tracked
+															  Local branch configured for 'git pull':
+																feature/ksqldb_5.5 merges with remote feature/ksqldb_5.5
+															  Local ref configured for 'git push':
+																feature/ksqldb_5.5 pushes to feature/ksqldb_5.5 (up to date)
+
 
 git remote set-url origin git@github.com:f-sanges/UDEMY_FORKED_Hands_on_Docker_for_JAVA_Developers.git		-> EXAMPLE to change the url of remote
 
@@ -31,8 +51,10 @@ git-ignore .idea							-> crea il file .ignore valorizzato con .idea
 
 git log										-> show log commit
 git log -1									   show only the last commit, log-NUMBER
+git log --oneline --graph --decorate --all	   
 
 
+git show									-> 	is used to view expanded details on Git objects such as blobs, trees, tags, and commits
 git show CODE_COMMIT						-> 	git log : show history logs
 												commit 8e919c89ea5d1e9399f9c9739b623d16f5be9f02
 												Author: f-sanges <63789710+f-sanges@users.noreply.github.com>
@@ -75,6 +97,7 @@ git commit --amend --no-edit				   --no-edit flag will allow you to make the ame
 git reset --hard (or -soft) HEAD~1			-> git reset --hard WILL DELETE YOUR WORKING DIRECTORY CHANGES. The HEAD~1 means the commit before head.
 												Or, you could look at the output of git log, find the commit id of the commit you want to back up to, and then do this:	
 												git reset --hard <sha1-commit-id>
+git reflog									-> The reflog is an ordered list of the commits that HEAD has pointed to	
 
 git pull									-> pulls down from a remote and instantly merges.
 git fetch									-> git fetch is similar to pull but doesn't merge
@@ -86,3 +109,21 @@ git rebase									-> Rebasing is the process of moving or combining a sequence 
 git rebase -i HEAD~3						-> rebase interactive mode, HEAD-NUMBER_OF_COMMIT, in the textpad put "s" instead of "pick" to squash commits
 git push --force-with-lease					-> after a commit squash t force origin to be aligned with master
 												--force-with-lease is a safer option that will not overwrite any work on the remote branch if more commits were added to the remote branch (by another team-member or coworker or what have you). It ensures you do not overwrite someone elses work by force pushing
+												
+												
+git clone REMOTE_REPO DIRECTORY				-> Clone the repo in the directory specified												
+git clone -b <branchname> <remote-repo-url>	-> Clone the repository, fetch all branches, and checkout to a specific branch immediately.
+
+git ls-files								-> Show information about files in the index and the working tree
+git ls-tree -r BRANCH --name-only			-> list all files for a specific branch; -r recursive
+
+git mv FILE1 FILE2							-> Rename or move a file tracking the operation
+git rm FILE1								-> Remove a file tracking the operation	
+
+
+git add -A 									-> For git 2.x same behaviour of "git add ."	
+
+git diff									-> Diff between the HEAD(last commit) and changes not committed yet	
+
+git mergetool								-> Open a tool to help merging		
+

@@ -11,3 +11,25 @@ totale 20
 -rw-rw-r--. 1 kafka kafka  168 28 apr 16.21 state-change.log
 -rw-rw-r--. 1 kafka kafka    0 28 apr 16.21 zookeeper-gc.log.0.current
 
+
+
+zookeeper-shell v-aps-t-m2-382:2181
+Connecting to v-aps-t-m2-382:2181
+Welcome to ZooKeeper!
+JLine support is disabled
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null
+ls /
+[admin, brokers, cluster, config, consumers, controller, controller_epoch, isr_change_notification, kafka-acl, kafka-acl-changes, kafka-acl-extended, kafka-acl-extended-changes, latest_producer_id_block, log_dir_event_notification, zookeeper]
+
+
+ls /brokers/ids
+[382, 383, 384]
+
+
+get /controller
+{"version":1,"brokerid":382,"timestamp":"1607696342590"}
+
+
