@@ -4,6 +4,12 @@ git config --global --alias.hist "ALIAS"	-> example: git config --global --alias
 git config -local							-> check all the configurations
 
 
+
+
+COMMENT on GITHUB										-> U can put the comment on Github. 
+															Explore the commmits, go through the GUI on the code showing all the code. Click the plus button on the left of each row
+
+
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 # start the ssh-agent in the background
 $ eval $(ssh-agent -s)
@@ -83,7 +89,7 @@ git branch -r (or -remote)				   	-> show remote branches
 git branch -d BRANCH_USED					-> when you are on the master branch, delete the BRANCH_USED locally
 
 git push origin --delete remoteBranchName	-> delete remote branch remoteBranchName
-git push origin -u BRANCH_REMOTE				"-u" means upstream
+git push origin -u BRANCH_REMOTE				"-u" means upstream. Useful for ex when you create a branch locally and you want to push the branch remotely
 	
 git merge BRANCH_DEVELOPED					-> when you are on the master branch, merge the BRANCH_DEVELOPED with the main branch
 
@@ -99,8 +105,11 @@ git reset --hard (or -soft) HEAD~1			-> git reset --hard WILL DELETE YOUR WORKIN
 												git reset --hard <sha1-commit-id>
 git reflog									-> The reflog is an ordered list of the commits that HEAD has pointed to	
 
-git pull									-> pulls down from a remote and instantly merges.
+git pull									-> pulls down from a remote and instantly merges. It's fetch + merge
+git pull --all									pulls all the branches, not only the current branch
+git pull --rebase								= git fetch + rebase; rebases your local commits ontop of remote HEAD and does not create a merge/merge commit
 git fetch									-> git fetch is similar to pull but doesn't merge
+git fetch -passing								-p prune, search for deleted branch
 
 git rebase									-> Rebasing is the process of moving or combining a sequence of commits to a new base commit.
 												The primary reason is to maintain a linear project history.
@@ -127,3 +136,7 @@ git diff									-> Diff between the HEAD(last commit) and changes not committed
 
 git mergetool								-> Open a tool to help merging		
 
+GITHUB close issue with commit				-> You can use any of these keywords to close an issue via commit message: close, closes, closed, fixes, fixed:
+												Example: git commit -m “Fixes #4” will close issue number 4
+											   To associate an issue already closed to a commit use the comment on the commit
+												for example commenting like "associate with #3" will associate the commit with the 3rd issue
