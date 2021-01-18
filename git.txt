@@ -90,6 +90,7 @@ git branch -d BRANCH_USED					-> when you are on the master branch, delete the B
 
 git push origin --delete remoteBranchName	-> delete remote branch remoteBranchName
 git push origin -u BRANCH_REMOTE				"-u" means upstream. Useful for ex when you create a branch locally and you want to push the branch remotely
+git push --set-upstream origin NEWBRANCH	-> In case you create NEWBRANCH only on the local repo (not on remote) and you want to push, git suggests to use --set-upstream
 	
 git merge BRANCH_DEVELOPED					-> when you are on the master branch, merge the BRANCH_DEVELOPED with the main branch
 
@@ -139,4 +140,8 @@ git mergetool								-> Open a tool to help merging
 GITHUB close issue with commit				-> You can use any of these keywords to close an issue via commit message: close, closes, closed, fixes, fixed:
 												Example: git commit -m “Fixes #4” will close issue number 4
 											   To associate an issue already closed to a commit use the comment on the commit
-												for example commenting like "associate with #3" will associate the commit with the 3rd issue
+											   
+											   
+git blame									-> display of author metadata attached to specific committed lines in a file. 
+												This is used to examine specific points of a file's history and get context as to who the last author was that modified the line. This is used to explore the history of specific code and answer questions about what, how, and why the code was added to a repository.
+												YOu can find the button "blame" also on github near the "Raw" button (useful to copy raw data)
