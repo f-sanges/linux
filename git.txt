@@ -121,7 +121,9 @@ git push --force-with-lease					-> after a commit squash t force origin to be al
 												--force-with-lease is a safer option that will not overwrite any work on the remote branch if more commits were added to the remote branch (by another team-member or coworker or what have you). It ensures you do not overwrite someone elses work by force pushing
 												
 												
-git clone REMOTE_REPO DIRECTORY				-> Clone the repo in the directory specified												
+git clone REMOTE_REPO DIRECTORY				-> Clone the repo in the directory specified
+												Example: git clone https://github.com/bstashchuk/docker . 
+														 Clone the repo in the current dir without creating the "docker" dir
 git clone -b <branchname> <remote-repo-url>	-> Clone the repository, fetch all branches, and checkout to a specific branch immediately.
 
 git ls-files								-> Show information about files in the index and the working tree

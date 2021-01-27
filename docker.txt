@@ -49,6 +49,91 @@ Check:
 
 
 
-docker logs -ft <CONTAINER>						-> show logs (-t tail, -f follows)
+docker logs -ft <CONTAINER-ID>													-> show logs (-t tail, -f follows)
+
+docker exec -it <CONTAINER-ID> bash												-> Note: The container must be started. Execute bash shell 
+
+docker rm $(docker ps -a -q)													-> Remove all containers
+docker rmi $(docker images -q)													-> Remove all images
+
+docker run -itd --name my-http-container-2 -p 5556:80 my-httpd:latest			-> ex of docker run specifing ports (-P to assign ports randomly)
+
+docker login																	-> to connect to DockerHub
+
+docker tag <currentimage>:<tag> <repository-name>/<image-name>:<tag>			-> tag an image
+	ex: docker tag my-nginx:latest fsanges/nginx:1.0
+
+docker push <repository-name>/<image-name>:<tag>								-> after the creation of the repository on DockerHub, push the image to it; 
+ex: docker push fsanges/nginx:1.0												   the name has to be the same
+
+docker commit <container-id> <repository-name>/<image-name>:<tag>
+
+docker pull <repository-name>/<image-name>:<tag>
+
+docker history [OPTIONS] IMAGE													-> Show the history of an image
+
+docker container prune															-> Remove all stopped containers.
+																					WARNING! This will remove all stopped containers.
+																					Are you sure you want to continue? [y/N] N
+
+
+-v option in docker cmd															-> -w = working directory
+																					docker run -v $PWD:/app python python3 /app/hello-python.py equivalent to
+																					docker run -v $PWD:/app -w /app python python3 hello-python.py
+Hello Python
+
+
+docker network ls																-> show docker networks
+																					Example:
+																					NETWORK ID          NAME                               DRIVER              SCOPE
+																					4d6c9017f731        bridge                             bridge              local
+																					30611446310e        host                               host                local
+																					5574f983a7a1        none                               null                local
+docker network inspect <network>												-> Example: 
+																					docker network inspect bridge
+																					[
+																						{
+																							"Name": "bridge",
+																							"Id": "4d6c9017f73138dedb97d1fb0e77f2455083cdd34470adfd2be989fcf5578362",
+																							"Created": "2021-01-26T17:24:29.641794642+01:00",
+																							"Scope": "local",
+																							"Driver": "bridge",
+																							"EnableIPv6": false,
+																							"IPAM": {
+																								"Driver": "default",
+																								"Options": null,
+																								"Config": [
+																									{
+																										"Subnet": "172.17.0.0/16",			# Subnet
+																										"Gateway": "172.17.0.1"
+																									}
+																								]
+																							},
+																							"Internal": false,
+																							"Attachable": false,
+																							"Ingress": false,
+																							"ConfigFrom": {
+																								"Network": ""
+																							},
+																							"ConfigOnly": false,
+																							"Containers": {},			# If there are containers running you will see its details
+																							"Options": {
+																								"com.docker.network.bridge.default_bridge": "true",
+																								"com.docker.network.bridge.enable_icc": "true",
+																								"com.docker.network.bridge.enable_ip_masquerade": "true",
+																								"com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+																								"com.docker.network.bridge.name": "docker0",
+																								"com.docker.network.driver.mtu": "1500"
+																							},
+																							"Labels": {}
+																						}
+																					]
+docker network create <network>													-> Create a network
+docker network rm <network>														-> Remove a network
+docker run --network <network> <image>											-> --network to specify a network
+																					Note: if you specify a network it is possible to use hostname to address a container
+
+
+
 
 
