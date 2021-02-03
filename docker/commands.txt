@@ -132,6 +132,9 @@ docker network create <network>													-> Create a network
 docker network rm <network>														-> Remove a network
 docker run --network <network> <image>											-> --network to specify a network
 																					Note: if you specify a network it is possible to use hostname to address a container
+			
+			
+docker attach <CONTAINER>														-> Attach local standard input, output, and error streams to a running container
 
 
 
