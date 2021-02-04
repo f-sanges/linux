@@ -49,7 +49,8 @@ Check:
 
 
 
-docker logs -ft <CONTAINER-ID>													-> show logs (-t tail, -f follows)
+docker logs -ft <CONTAINER-ID>													-> show logs (-t timestamps, -f follows)
+--tail <NUMBER>																		show last NUMBER rows
 
 docker exec -it <CONTAINER-ID> bash												-> Note: The container must be started. Execute bash shell 
 

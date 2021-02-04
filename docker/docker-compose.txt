@@ -1,0 +1,13 @@
+docker-compose up									-> Create and start containers
+--build													to build and start containers
+-d														detach mode
+
+docker-compose ps									-> see containers runnig
+
+docker-compose down									-> Stop and remove containers, networks, images, and volumes
+
+docker-compose build								->  Build or rebuild services
+
+
+docker-compose run SERVICE COMMAND 					-> Run a one-off command on a service.
+
