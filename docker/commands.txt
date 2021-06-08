@@ -47,7 +47,7 @@ Check:
 
 
 
-
+docker info																		-> Display system-wide information
 
 docker logs -ft <CONTAINER-ID>													-> show logs (-t timestamps, -f follows)
 --tail <NUMBER>																		show last NUMBER rows
@@ -67,11 +67,14 @@ docker tag <currentimage>:<tag> <repository-name>/<image-name>:<tag>			-> tag an
 docker push <repository-name>/<image-name>:<tag>								-> after the creation of the repository on DockerHub, push the image to it; 
 ex: docker push fsanges/nginx:1.0												   the name has to be the same
 
-docker commit <container-id> <repository-name>/<image-name>:<tag>
+docker commit <container-id> <repository-name>/<image-name>:<tag>				-> commit  a container's file changes or settings into a new image
 
 docker pull <repository-name>/<image-name>:<tag>
 
 docker history [OPTIONS] IMAGE													-> Show the history of an image
+
+docker image prune																-> By default, docker image prune only cleans up dangling images. 
+																					A dangling image is one that is not tagged and is not referenced by any container
 
 docker container prune															-> Remove all stopped containers.
 																					WARNING! This will remove all stopped containers.
@@ -133,11 +136,15 @@ docker network create <network>													-> Create a network
 docker network rm <network>														-> Remove a network
 docker run --network <network> <image>											-> --network to specify a network
 																					Note: if you specify a network it is possible to use hostname to address a container
+docker network prune															-> Reomove all unused network
+																					
 			
 			
 docker attach <CONTAINER>														-> Attach local standard input, output, and error streams to a running container
 
 
-
-
+docker volume create --name my-vol												-> create a volume specifing the name
+docker volume ls																-> list volumes
+docker volume prune																-> delete all unused volumes
+	
 

@@ -120,6 +120,9 @@ git rebase -i HEAD~3						-> rebase interactive mode, HEAD-NUMBER_OF_COMMIT, in 
 git push --force-with-lease					-> after a commit squash t force origin to be aligned with master
 												--force-with-lease is a safer option that will not overwrite any work on the remote branch if more commits were added to the remote branch (by another team-member or coworker or what have you). It ensures you do not overwrite someone elses work by force pushing
 												
+git merge --squash target_branch_name		-> This command will take all the commits from the target branch, squash them, and stage all changes in the current branch. 
+												Then you can commit all the changes in a single commit.
+
 												
 git clone REMOTE_REPO DIRECTORY				-> Clone the repo in the directory specified
 												Example: git clone https://github.com/bstashchuk/docker . 
