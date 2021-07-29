@@ -1,0 +1,62 @@
+kubectl get pods --namespace kube-system								-> Using kubectl get pods to check kube-system
+																			--show-labels to show labels
+kubectl describe pods --namespace kube-system							-> Using kubectl describe pods to check kube-system
+
+kubectl get namespace													-> Viewing namespaces. Kubernetes starts with four initial namespaces: default, kube-node-lease, kube-public, kube-system.
+
+kubectl get nodes														-> List the nodes in your cluster
+																			--show-labels
+kubectl describe node node_name											-> Describe node
+
+kubectl get daemonsets --namespace=kube-system kube-proxy				-> get daemonsets kube-proxy; you can even remove kube-proxy if you want all the daemonsets
+
+kubectl get deployments --namespace=kube-system coredns					-> get deployments coredns		
+
+kubectl get services --namespace=kube-system							-> get services of specified namespace
+																			-o wide to get more info
+
+$HOME/.kube/config														-> configuration file of kubectl	
+kubectl config view														-> to see the kubectl configuration	
+
+kubectl config set-context my-context --namespace=mystuff				-> set a new context	
+kubectl config use-context my-context									-> use a new context
+
+option -o json or -o yaml												-> used often with get command to view the complete object	
+
+kubectl apply -f obj.yaml												-> create the object, modify it
+--dry-run																	show what it will do without applying it
+edit-last-applied, set-last-applied, and view-last-applied					show the state	
+kubectl delete -f obj.yaml												-> delete the object without confirmation	
+
+kubectl label pods bar color=red										-> labeling; --overwrite to overwrite	
+kubectl label pods bar color-											-> remove a label	
+
+kubectl logs <pod-name>													-> debug. 			
+-c																			You can choose the container to view using the -c flag
+-f 																			following	
+
+kubectl exec -it <pod-name> -- bash										-> execute a command in a running container	
+
+kubectl attach -it <pod-name>											-> attach to the running process
+
+kubectl cp <pod-name>:</path/to/remote/file> </path/to/local/file>		-> copying files; you can reverse the syntax
+
+kubectl port-forward <pod-name> 8080:80									-> port-forward command to forward network traffic from the local machine to the Pod
+
+kubectl top nodes														-> top, you can add --all-namespaces
+kubectl top pods
+
+kubectl help <command-name>												-> help
+
+
+
+
+
+
+
+
+# minikube section
+minikube start
+
+minikube image load <image name>										-> Load takes an image that is available as an archive, and makes it available in the cluster.									
+												
