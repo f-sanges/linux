@@ -81,6 +81,11 @@ vi											-> Ctrl+R  = ReDo
 											   ESC + U = UnDo
 											   Pressing V = Visual line selection, v = visual selection (move with arrows)
 											   Copy(Yank)/Paste is done with Y/P
+											   Ctrl+G -> line information
+											   r -> replace a character
+											   . -> repeat
+											   dw -> delete a word
+											   x -> delete a character
 											   
 Copy / paste in terminal					-> Ctrl+Shift+c / Ctrl+Shift+v
 
@@ -104,6 +109,9 @@ printenv									-> Print environment variables
 
 date -d@TIMESTAMP							-> Convert timestamps (s) in date:
 												date -d@1595038139 = Sat Jul 18 04:08:59     2020
+date +%Y										show the year; it can show only the month with +%m, +%d for the day ...
+
+timedatectl									-> Control the system time and date
 												
 echo $SHELL or echo $0						-> show the shell type
 
@@ -125,3 +133,6 @@ userdel username -r							-> remove a user (-r remove also the home dir)
 
 su user										-> swithc to user
 												The most commonly used option when invoking su is - (-l, --login). This makes the shell a login shell with an environment very similar to a real login and changes the current directory
+												
+cal											-> calendar
+												Examples: cal 2021, cal 7 1982, cal -A 2 -B 2

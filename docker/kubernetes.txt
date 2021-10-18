@@ -26,7 +26,9 @@ option -o json or -o yaml												-> used often with get command to view the 
 kubectl apply -f obj.yaml												-> create the object, modify it
 --dry-run																	show what it will do without applying it
 edit-last-applied, set-last-applied, and view-last-applied					show the state	
+
 kubectl delete -f obj.yaml												-> delete the object without confirmation	
+kubectl delete pods PODNAME												-> delete a pod
 
 kubectl label pods bar color=red										-> labeling; --overwrite to overwrite	
 kubectl label pods bar color-											-> remove a label	
@@ -55,8 +57,13 @@ kubectl help <command-name>												-> help
 
 
 
+
+
+
 # minikube section
 minikube start
 
-minikube image load <image name>										-> Load takes an image that is available as an archive, and makes it available in the cluster.									
+minikube image load <image name>										-> Load takes an image that is available as an archive, and makes it available in the cluster.
+
+minikube add-ons enable metric-server									-> to enable metric-server addon
 												
