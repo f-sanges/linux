@@ -14,3 +14,9 @@ Repeat command														-> .
 
 Delete																-> dw delete a word
 																		x delete a character
+
+First/Last column of the line										-> 0/$
+
+In Ex mode (:) go to a specific line								-> Example :10	
+Reload the file														-> :e!
+set line number														-> set nu / set number; set nonu to disable											
