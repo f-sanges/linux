@@ -77,16 +77,6 @@ ex3: echo {a1,a2}.log -> a1.log a2.log
 
 info										-> informations about Linux commands
 
-vi											-> Ctrl+R  = ReDo
-											   ESC + U = UnDo
-											   Pressing V = Visual line selection, v = visual selection (move with arrows)
-											   Copy(Yank)/Paste is done with Y/P
-											   Ctrl+G -> line information
-											   r -> replace a character
-											   . -> repeat
-											   dw -> delete a word
-											   x -> delete a character
-											   
 Copy / paste in terminal					-> Ctrl+Shift+c / Ctrl+Shift+v
 
 /var/log/auth.log or /var/log/secure:		-> Keep authentication logs for both successful or failed logins, and authentication processes. Storage depends on system type. 

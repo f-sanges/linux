@@ -1,0 +1,16 @@
+ReDo																-> Ctrl+R
+UnDo																-> ESC + U	
+
+V = Visual line selection,
+v = visual selection (move with arrows)
+
+Copy(Yank)/Paste 													-> Y/P
+
+Line information													-> Ctrl + G
+
+Replace a character													-> 
+
+Repeat command														-> .
+
+Delete																-> dw delete a word
+																		x delete a character
