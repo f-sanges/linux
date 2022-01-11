@@ -25,10 +25,14 @@ find -exec 											-> -exec command {} +
 find . -iname "*.txt" | tee file.txt				-> redirect a file e a schermo
 find ! -user USER_NAME								-> find in the current directory all the files not owned by USER_NAME
 
-pgrep -u root ssh			-> will only list the processes that are called sshd and are owned by root.
+pgrep -u root ssh									-> will only list the processes that are called sshd and are owned by root.
 
-sudo systemctl start elasticsearch   	-			> simile a :
-														sudo servive elasticsearch start (NB cambia l'ordine dei comandi)
+sudo systemctl start/stop/restart docker  			-> simile a : sudo service docker start (NB cambia l'ordine dei comandi)
+sudo systemctl status docker
+sudo systemctl enable docker
+systemctl is-active docker
+systemctl list-units								-> To see a list of all of the active units that systemd knows about
+systemctl cat docker								-> To display the unit file that systemd has loaded into its system
 
 
 crontab -e											-> qui puoi specificare un task con sintassi:  m h  dom mon dow   command
