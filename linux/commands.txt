@@ -33,6 +33,8 @@ sudo systemctl enable docker
 systemctl is-active docker
 systemctl list-units								-> To see a list of all of the active units that systemd knows about
 systemctl cat docker								-> To display the unit file that systemd has loaded into its system
+systemctl show docker								-> To see the low-level properties of a unit. 
+														If you want to display a single property, you can pass the -p flag with the property name (i.e. -p Conflicts)
 
 
 crontab -e											-> qui puoi specificare un task con sintassi:  m h  dom mon dow   command
