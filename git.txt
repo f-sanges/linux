@@ -109,6 +109,8 @@ git reflog									-> The reflog is an ordered list of the commits that HEAD has
 git pull									-> pulls down from a remote and instantly merges. It's fetch + merge
 git pull --all									pulls all the branches, not only the current branch
 git pull --rebase								= git fetch + rebase; rebases your local commits ontop of remote HEAD and does not create a merge/merge commit
+git pull origin main --allow-unrelated-histories -> for error fatal: refusing to merge unrelated histories.
+													You have created a new repository, added a few commits to it, and now you are trying to pull from a remote repository that already has some commits of its own. Git will also throw the error in this case, since it has no idea how the two projects are related.
 git fetch									-> git fetch is similar to pull but doesn't merge
 git fetch -passing								-p prune, search for deleted branch
 
@@ -122,6 +124,7 @@ git push --force-with-lease					-> after a commit squash t force origin to be al
 												
 git merge --squash target_branch_name		-> This command will take all the commits from the target branch, squash them, and stage all changes in the current branch. 
 												Then you can commit all the changes in a single commit.
+												Github also provides the option to squash commits. This is also a very helpful feature that comes in handy when you are merging a pull request.
 
 												
 git clone REMOTE_REPO DIRECTORY				-> Clone the repo in the directory specified
