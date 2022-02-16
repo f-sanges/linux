@@ -1,4 +1,4 @@
-docker-compose up									-> Create and start containers
+docker-compose up									-> Create and start containers (Note that docker-compose create a network)
 --build													to build and start containers
 -d														detach mode
 
@@ -10,4 +10,28 @@ docker-compose build								->  Build or rebuild services
 
 
 docker-compose run SERVICE COMMAND 					-> Run a one-off command on a service.
+
+
+
+
+
+
+
+
+
+Example of docker-compose that builds an image naming it "mynginximage:1.0"
+
+docker-compose.yml
+version: "3"
+services:
+ mynginximage:
+  build: .
+  image: "mynginximage:1.0"
+  
+ 
+Dockerfile.yml
+FROM    nginx
+EXPOSE  8080
+
+
 

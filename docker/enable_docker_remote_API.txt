@@ -1,0 +1,16 @@
+Navigate to /lib/systemd/system in your terminal and open docker.service file: vi /lib/systemd/system/docker.service
+
+Find the line which starts with ExecStart and adds -H=tcp://0.0.0.0:2375 to make it look like: ExecStart=/usr/bin/dockerd -H=fd:// -H=tcp://0.0.0.0:2375
+
+Reload the docker daemon: systemctl daemon-reload
+
+Restart the service docker: sudo service docker restart
+
+Test if it is working by using this command, if everything is fine below command should return a JSON
+curl http://localhost:2375/images/json
+
+
+
+Using DOCKER_HOST environment variable to set up the target engine for example
+
+DOCKER_HOST=tcp://192.168.0.1:2375 docker run httpd:latest -d

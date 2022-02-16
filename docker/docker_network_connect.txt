@@ -1,0 +1,61 @@
+CREATE A NEW NETOWRK
+docker network create --driver=bridge --subnet=192.168.2.0/24 --gateway=192.168.2.10 test
+
+when you create the network in your system you will see:
+
+[docker@centos7 ~]$ ifconfig
+br-f389c928d7b4: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.2.10  netmask 255.255.255.0  broadcast 192.168.2.255
+        inet6 fe80::42:6cff:fea0:aeea  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:6c:a0:ae:ea  txqueuelen 0  (Ethernet)
+        RX packets 3082  bytes 273757 (267.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1787  bytes 241293 (235.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+
+CREATE A CONTAINER (the container will be automatically connected with the bridge default network)
+docker run -it alpine sh
+
+
+CONNECT A CONTAINER TO THE NETWORK CREATED
+docker network connect test f4d984e27992
+
+
+AFTER THE CONNECTION in "Networks":
+docker container inspect f4d984e27992
+
+...
+"Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "d8bef59832cbae81c3c4ddf8c2bd7aafb38c651389e98092dc83ae86572ce8ce",
+                    "EndpointID": "68756107cd8ec57633f0c0b16ed7a5623d8f425f88f032a645eadae8dbf67ba7",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.3",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:03",
+                    "DriverOpts": null
+                },
+                "test": {
+                    "IPAMConfig": {},
+                    "Links": null,
+                    "Aliases": [
+                        "f4d984e27992"
+                    ],
+                    "NetworkID": "f389c928d7b45183b218f0850b295ed988f46dd184e8334604e6f0294ba4a7d8",
+                    "EndpointID": "ba80fa8280f49ff02da889ce727d6e16c3a497f86f23a5cccd2a56561be2a9a8",
+                    "Gateway": "192.168.2.10",
+                    "IPAddress": "192.168.2.2",
+                    "IPPrefixLen": 24,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:c0:a8:02:02",
+                    "DriverOpts": {}

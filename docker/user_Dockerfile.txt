@@ -1,0 +1,20 @@
+Dockerfile
+
+FROM    alpine
+RUN     mkdir /tmp/prova_root
+RUN     adduser --disabled-password --gecos '' newuser
+USER    nobody
+RUN     mkdir /tmp/prova_nobody
+USER    newuser
+RUN     mkdir /tmp/prova_newuser
+
+docker build -t prova_user .
+
+docker run -it --name c1 prova_user sh
+
+Once you logged in, go to /tmp and check the owners of the files created.
+the file /tmp/prova_root will be created as root user
+the file /tmp/prova_nobody will be created as nobody (The nobody user is a pseudo user in many Unixes and Linux distributions)
+the file /tmp/prova_nobody will be created as newuser
+
+Notice that you are logged in as "newuser" in the container (whoami command inside the container)

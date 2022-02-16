@@ -94,9 +94,10 @@ docker container prune															-> Remove all stopped containers.
 																					Are you sure you want to continue? [y/N] N
 
 
--v option in docker cmd															-> -w = working directory
-																					docker run -v $PWD:/app python python3 /app/hello-python.py equivalent to
-																					docker run -v $PWD:/app -w /app python python3 hello-python.py
+-v option in docker cmd															-> Example (-w = working directory)
+																					docker run -v $(pwd):/app python python3 /app/hello-python.py equivalent to
+																					docker run -v $(pwd):/app -w /app python python3 hello-python.py
+																					You can specify read only with ":ro" for example $(pwd):/app:ro
 Hello Python
 
 
@@ -164,5 +165,6 @@ docker attach <CONTAINER>														-> Attach local standard input, output, a
 docker volume create --name my-vol												-> create a volume specifing the name
 docker volume ls																-> list volumes
 docker volume prune																-> delete all unused volumes
-	
+
+docker rename CONTAINER NEW_NAME												-> rename a container
 
