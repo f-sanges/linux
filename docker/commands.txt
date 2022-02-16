@@ -4,6 +4,9 @@ sudo service docker start
 or
 sudo systemctl start docker
 
+another way to start:
+sudo dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375				-> dockerd is the server daemon
+
 
 
 check status (example):
@@ -49,6 +52,8 @@ Check:
 
 docker info																		-> Display system-wide information
 
+sudo service docker status
+
 docker logs -ft <CONTAINER-ID>													-> show logs (-t timestamps, -f follows)
 --tail <NUMBER>																		show last NUMBER rows
 
@@ -58,6 +63,14 @@ docker rm $(docker ps -a -q)													-> Remove all containers
 docker rmi $(docker images -q)													-> Remove all images
 
 docker run -itd --name my-http-container-2 -p 5556:80 my-httpd:latest			-> ex of docker run specifing ports (-P to assign ports randomly)
+																					it creates a new virtual network
+																					see command: ip a
+																					note in the following output "master docker 0"
+																					27: vethe11d1ae@if26: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP group default
+																					link/ether 36:5c:0d:46:e0:f9 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+																					inet6 fe80::345c:dff:fe46:e0f9/64 scope link
+																					   valid_lft forever preferred_lft forever
+
 
 docker login																	-> to connect to DockerHub
 
@@ -132,11 +145,16 @@ docker network inspect <network>												-> Example:
 																							"Labels": {}
 																						}
 																					]
-docker network create <network>													-> Create a network
+docker network create <network_name>											-> Create a network
+																					You can specify for example --driver=bridge
+																												--subnet=192.168.2./24
+																												--gateway=192.168.2.10
+																									
 docker network rm <network>														-> Remove a network
 docker run --network <network> <image>											-> --network to specify a network
 																					Note: if you specify a network it is possible to use hostname to address a container
-docker network prune															-> Reomove all unused network
+																					if you specify --network host the container’s network stack is not isolated from the Docker host (the container shares the host’s networking namespace)
+docker network prune															-> Remove all unused network
 																					
 			
 			
