@@ -27,11 +27,35 @@ find ! -user USER_NAME								-> find in the current directory all the files not
 
 pgrep -u root ssh									-> will only list the processes that are called sshd and are owned by root.
 
+
+systemd-delta --type=extended						-> By default, systemd service definitions go under /etc/systemd/system/name.service
+													drop-in units where you can write parts of the service definition and it will override it.
+													Example: systemctl status confluent-control-center.service
+															  confluent-control-center.service - Confluent Control Center
+															  Loaded: loaded (/usr/lib/systemd/system/confluent-control-center.service; enabled; vendor preset: disabled)
+															  Drop-In: /etc/systemd/system/confluent-control-center.service.d
+															  └─override.conf
+															  
+															 cat override.conf
+															[Service]
+															Environment="LOG_DIR=/var/log/confluent/control-center"
+															Environment="CONTROL_CENTER_LOG4J_OPTS=-Dlog4j.configuration=file:/etc/confluent-control-center/log4j-rolling.properties"
+															Environment="CONTROL_CENTER_OPTS=-Djavax.net.ssl.trustStore=/etc/kafka/ssl/kafka-truststore.jks -Djavax.net.ssl.trustStorePassword=xxxxx
+															-Djavax.net.ssl.keyStore=/etc/kafka/ssl/diana.test.app.kafka-controlb.jks -Djavax.net.ssl.keyStorePassword= -Djavax.net.ssl.keyPassword=xxxxx"
+															Restart=on-failure
+															LimitNOFILE=100000
+															ExecStart=
+															ExecStart=/usr/bin/control-center-start /etc/confluent-control-center/control-center.properties
+
+
+
+													
 sudo systemctl start/stop/restart docker  			-> simile a : sudo service docker start (NB cambia l'ordine dei comandi)
 sudo systemctl status docker
 sudo systemctl enable docker
 systemctl is-active docker
-systemctl list-units								-> To see a list of all of the active units that systemd knows about
+systemctl list-units 								-> To see a list of all of the active units that systemd knows about
+(--type=service) (--state=failed)
 systemctl cat docker								-> To display the unit file that systemd has loaded into its system
 systemctl show docker								-> To see the low-level properties of a unit. 
 														If you want to display a single property, you can pass the -p flag with the property name (i.e. -p Conflicts)

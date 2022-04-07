@@ -8,3 +8,8 @@ Example of output
 Starting offset: 26
 offset: 26 position: 0 CreateTime: 1598344210195 isvalid: true keysize: -1 valuesize: 28 magic: 2 compresscodec: NONE producerId: -1 producerEpoch: -1 sequence: -1 isTransactional: false headerKeys: [] payload: {"id" : 31, "name" : "amir"}
 offset: 27 position: 96 CreateTime: 1598344714022 isvalid: true keysize: -1 valuesize: 28 magic: 2 compresscodec: NONE producerId: -1 producerEpoch: -1 sequence: -1 isTransactional: false headerKeys: [] payload: {"id" : 32, "name" : "riya"}
+
+
+kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration --print-data-log --files 00000000000000000000.index
+
+kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration --print-data-log --files 00000000000000000000.timeindex

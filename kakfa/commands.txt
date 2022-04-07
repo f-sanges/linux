@@ -131,3 +131,6 @@ CONFLUENT RPM INSTALLED :
 rpm -qa| grep confluent
 
 
+To check overrides set on the topic you can do
+kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name my-topic --describe --all
+
